@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Document</title>
+</head>
+<body>
+	<script src="./Lpromise.js"></script>
+	<script>
+
+
+		var p1 = new Lpromise(function(resolve,reject,complete){
+				resolve(3);
+				resolve(4);
+			setTimeout(function(){
+				complete();
+			},500)
+		});
+
+		var p2 = new Lpromise(function(resolve,reject,complete){
+			setTimeout(function(){
+				resolve(6);
+				resolve(7);
+				complete();
+			},500)
+		});
+
+		var p3 = new Lpromise(function(resolve,reject){
+			reject("err4");
+		});
+/*
+		p3.then(function(){
+
+		},function(err){
+			console.log(err)
+		});
+
+		p1.then(function(d){
+			console.log(d)
+		},function(){
+
+		},function(d){
+			console.log(d)
+		});
+
+		Lpromise.all([p1,p2]).then(function(d){
+
+		},function(){},function(d){
+			console.log(d)
+		});*/
+
+		/*Lpromise.all([p1,p2]).then(function(d){
+
+		},function(err){console.log(err)},function(d){
+			console.log(d)
+		});*/
+
+		Lpromise.race([p1,p2]).then(function(d){
+			console.log('race:'+d)
+		},function(){},function(d){
+			console.log('race:'+"p1 p1 all succ")
+		});
+
+	</script>
+</body>
+</html>
